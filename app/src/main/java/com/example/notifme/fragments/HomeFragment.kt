@@ -7,13 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.navigation.Navigation
 import com.example.notifme.databinding.FragmentHomeBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 
-class HomeFragment : Fragment(), AddToDoFragment.DiaglogNextBtnClickListener {
+class HomeFragment : DialogFragment(), AddToDoFragment.DiaglogNextBtnClickListener {
+
+    companion object {
+        fun newInstance(): AddToDoFragment {
+            return AddToDoFragment()
+        }
+    }
 
     private lateinit var auth : FirebaseAuth
     private lateinit var databaseRef: DatabaseReference
@@ -42,8 +49,7 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogNextBtnClickListener {
         binding.floatBtnAdd.setOnClickListener {
             taskPopUp = AddToDoFragment()
             taskPopUp.setListener(this)
-            taskPopUp.show(childFragmentManager,AddToDoFragment)
-
+            taskPopUp.show(childFragmentManager, "AddToDoFragment")
         }
      }
 
