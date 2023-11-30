@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "952324773790",
+    "project_id": "notif-me-c3008",
+    "storage_bucket": "notif-me-c3008.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952324773790:android:d0d9ab8941f8b76408288f",
+        "android_client_info": {
+          "package_name": "com.example.notifme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrRCBLNbCbzfTqXnCYx-CbzMQwoIKq-7I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
