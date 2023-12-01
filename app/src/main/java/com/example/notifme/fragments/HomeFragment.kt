@@ -22,9 +22,9 @@ class HomeFragment : DialogFragment(), AddToDoFragment.DiaglogNextBtnClickListen
         }
     }
 
-    private lateinit var auth : FirebaseAuth
+//    private lateinit var auth : FirebaseAuth
     private lateinit var databaseRef: DatabaseReference
-    private lateinit var navController: NavController
+//    private lateinit var navController: NavController
     private lateinit var binding: FragmentHomeBinding
     private lateinit var taskPopUp: AddToDoFragment
 
@@ -54,9 +54,9 @@ class HomeFragment : DialogFragment(), AddToDoFragment.DiaglogNextBtnClickListen
      }
 
     private fun init(view: View) {
-        navController = Navigation.findNavController(view)
-        auth = FirebaseAuth.getInstance()
-        databaseRef = FirebaseDatabase.getInstance().reference.child("Tasks").child(auth.currentUser?.uid.toString())
+//        navController = Navigation.findNavController(view)
+//        auth = FirebaseAuth.getInstance()
+//        databaseRef = FirebaseDatabase.getInstance().reference.child("Tasks").child(auth.currentUser?.uid.toString())
     }
 
     override fun onSaveTask(task: String, edtTaskName: EditText) {
@@ -69,6 +69,4 @@ class HomeFragment : DialogFragment(), AddToDoFragment.DiaglogNextBtnClickListen
             }
         }
     }
-
-
 }
