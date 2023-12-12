@@ -1,6 +1,7 @@
 package com.example.notifme.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +36,7 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
     private lateinit var databaseRef: DatabaseReference
     private lateinit var navController: NavController
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var taskPopUp: AddToDoFragment
+    private var taskPopUp: AddToDoFragment? = null
     private lateinit var adapter: ToDoAdapter
     private lateinit var mList:MutableList<ToDoData>
 
@@ -61,9 +62,12 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
 
     private fun registerEvents() {
         binding.floatBtnAdd.setOnClickListener {
+            if (taskPopUp != null) {
+                childFragmentManager.beginTransaction().remove(taskPopUp!!).commit()
+            }
             taskPopUp = AddToDoFragment()
-            taskPopUp.setListener(this)
-            taskPopUp.show(childFragmentManager, "AddToDoFragment")
+            taskPopUp!!.setListener(this)
+            taskPopUp!!.show(childFragmentManager, "AddTodoFragment")
         }
      }
 
@@ -104,14 +108,32 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
     }
 
     override fun onSaveTask(task: String, edtTaskName: EditText) {
+        Log.d("SaveTask", "Task: $task")
+
         databaseRef.push().setValue(task).addOnCompleteListener {
             if (it.isSuccessful) {
+                Log.d("SaveTask", "Successfully saved")
                 Toast.makeText(context, "Successfully saved", Toast.LENGTH_SHORT).show()
-                edtTaskName.text.clear()
             } else {
+                Log.e("SaveTask", "Error saving task", it.exception)
                 Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
             }
-            taskPopUp.dismiss()
+            edtTaskName.text.clear()
+            taskPopUp!!.dismiss()
+        }
+    }
+
+    override fun onUpdateTask(toDoData: ToDoData, edtTaskName: EditText) {
+        val map = HashMap<String, Any>()
+        map[toDoData.taskId] = toDoData.task
+        databaseRef.updateChildren(map).addOnCompleteListener {
+            if (it.isSuccessful){
+                Toast.makeText(context, "Updated Successfully", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
+            }
+            edtTaskName.text = null
+            taskPopUp!!.dismiss()
         }
     }
 
@@ -126,6 +148,11 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
     }
 
     override fun onEditTaskBtnCLicked(toDoData: ToDoData) {
-        TODO("Not yet implemented")
+        if (taskPopUp != null) {
+            childFragmentManager.beginTransaction().remove(taskPopUp!!).commit()
+        }
+        taskPopUp = AddToDoFragment.newInstance(toDoData.taskId, toDoData.task)
+        taskPopUp!!.setListener(this)
+        taskPopUp!!.show(childFragmentManager, "AddTodoFragment")
     }
 }
