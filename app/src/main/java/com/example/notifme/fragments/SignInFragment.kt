@@ -53,6 +53,7 @@ class SignInFragment : Fragment() {
             val password = binding.edtPassword.text.toString().trim()
 
             if(email.isNotEmpty() && password.isNotEmpty()){
+                binding.progressBar.visibility = View.VISIBLE
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
                     OnCompleteListener {
                         if (it.isSuccessful){
@@ -61,7 +62,10 @@ class SignInFragment : Fragment() {
                         } else {
                             Toast.makeText(context, "You are not a registered user. Please register first.", Toast.LENGTH_SHORT).show()
                             }
+                        binding.progressBar.visibility = View.GONE
                     })
+            } else {
+                Toast.makeText(context, "Please enter the necessary fields", Toast.LENGTH_SHORT).show()
             }
         }
     }

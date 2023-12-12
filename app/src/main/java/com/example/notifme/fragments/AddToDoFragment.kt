@@ -1,7 +1,6 @@
 package com.example.notifme.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.notifme.databinding.FragmentAddToDoBinding
-import com.example.notifme.databinding.FragmentHomeBinding
+import com.google.firebase.FirebaseApp
 
 
 class AddToDoFragment : DialogFragment() {
 
     private lateinit var binding : FragmentAddToDoBinding
-    private lateinit var listener: DiaglogNextBtnClickListener
+    private lateinit var listener: DiaglogSaveBtnClickListener
 
     fun setListener(listener: HomeFragment) {
         this.listener = listener
@@ -25,6 +24,8 @@ class AddToDoFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        FirebaseApp.initializeApp(requireContext())
+
         // Inflate the layout for this fragment
         binding = FragmentAddToDoBinding.inflate(inflater, container, false)
         return binding.root
@@ -50,8 +51,8 @@ class AddToDoFragment : DialogFragment() {
         }
     }
 
-    interface DiaglogNextBtnClickListener {
-        fun onSaveTask(task : String , edtTaskName : EditText)
+    interface DiaglogSaveBtnClickListener {
+        fun onSaveTask(todo : String , edtTaskName : EditText)
     }
 
 

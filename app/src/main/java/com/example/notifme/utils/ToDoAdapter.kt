@@ -3,20 +3,21 @@ package com.example.notifme.utils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notifme.databinding.FragmentAddToDoBinding
+import com.example.notifme.databinding.EachTodoItemBinding
+import com.example.notifme.fragments.HomeFragment
 
-class ToDoAdapter(private val list: MutableList<ToDoAdapter>) :
-    RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder {
+
+class ToDoAdapter(private val list: MutableList<ToDoData>) :
+    RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
 
     private var listener:ToDoAdapterClicksInterface? = null
-    fun setListener(listener:ToDoAdapterClicksInterface){
+    fun setListener(listener: HomeFragment){
         this.listener = listener
     }
-    inner class ToDoViewHolder(val binding: FragmentAddToDoBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class ToDoViewHolder(val binding: EachTodoItemBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoViewHolder {
-        val binding = FragmentAddToDoBinding.inflate(LayoutInflater.from(parent.context),parent, false )
+        val binding = EachTodoItemBinding.inflate(LayoutInflater.from(parent.context),parent, false )
         return ToDoViewHolder(binding)
     }
 
@@ -32,14 +33,14 @@ class ToDoAdapter(private val list: MutableList<ToDoAdapter>) :
     override fun onBindViewHolder(holder: ToDoViewHolder, position: Int) {
         with(holder){
             with(list[position]){
-                binding.txtTaskName.text = this.task
+                binding.todoTask.text = this.task
 
-                binding.btnSaveToDo.setOnClickListener{
-                    listener?.onEditTaskBtnCLicked(this)
+                binding.deleteTask.setOnClickListener{
+                    listener?.onDeleteTaskBtnClicked(this)
                 }
 
-                binding.btnCancel.setOnClickListener {
-                    listener?.onDeleteTaskBtnClicked(this)
+                binding.editTask.setOnClickListener {
+                    listener?.onEditTaskBtnCLicked(this)
                 }
 
             }
