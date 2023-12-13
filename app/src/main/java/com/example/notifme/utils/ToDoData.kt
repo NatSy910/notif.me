@@ -1,5 +1,3 @@
 package com.example.notifme.utils
 
-import java.util.Date
-
-data class ToDoData(val taskId:String, var task : String)
+data class ToDoData(val taskId:String, var task: String, var taskDueDate: String, var taskComment: String)

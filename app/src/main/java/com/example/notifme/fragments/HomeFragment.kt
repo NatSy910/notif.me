@@ -90,8 +90,8 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
                 mList.clear()
                 for (taskSnapshot in snapshot.children){
                     val toDoTask = taskSnapshot.key?.let{
-                        ToDoData(it, taskSnapshot.value.toString())
-                    }
+                        ToDoData(it, taskSnapshot.value.toString(), taskSnapshot.value.toString(), taskSnapshot.value.toString())
+                    } //add
 
                     if (toDoTask != null){
                         mList.add(toDoTask)
@@ -103,11 +103,10 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
             }
-
         })
     }
 
-    override fun onSaveTask(task: String, edtTaskName: EditText) {
+    override fun onSaveTask(task: String, edtTaskName: EditText, taskDueDate: EditText, taskComment: EditText) {
         Log.d("SaveTask", "Task: $task")
 
         databaseRef.push().setValue(task).addOnCompleteListener {
@@ -123,7 +122,12 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
         }
     }
 
-    override fun onUpdateTask(toDoData: ToDoData, edtTaskName: EditText) {
+    override fun onUpdateTask(
+        toDoData: ToDoData,
+        edtTaskName: EditText,
+        edtDueDate: EditText,
+        edtComment: EditText
+    ) {
         val map = HashMap<String, Any>()
         map[toDoData.taskId] = toDoData.task
         databaseRef.updateChildren(map).addOnCompleteListener {

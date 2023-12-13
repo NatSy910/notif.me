@@ -50,7 +50,9 @@ class AddToDoFragment : DialogFragment() {
         if (arguments != null) {
             toDoData = ToDoData(
                 arguments?.getString("taskID").toString(),
-                arguments?.getString("task").toString())
+                arguments?.getString("task").toString(),
+                arguments?.getString("taskDueDate").toString(), //add
+                arguments?.getString("taskComment").toString()) //add
 
             binding.edtTaskName.setText(toDoData?.task)
         }
@@ -60,14 +62,23 @@ class AddToDoFragment : DialogFragment() {
     private fun registerEvents() {
         binding.btnSaveToDo.setOnClickListener {
             val taskName = binding.edtTaskName.text.toString()
+            val taskDueDate = binding.edtDueDate.text.toString()
+            val taskComment = binding.edtComment.text.toString()
             if (taskName.isNotEmpty()) {
                 if (toDoData == null) {
-                    listener.onSaveTask(taskName, binding.edtTaskName)
+                    listener.onSaveTask(taskName, binding.edtTaskName, binding.edtDueDate, binding.edtComment) //add
                 } else {
                     toDoData?.task = taskName
-                    listener.onUpdateTask(toDoData!!, binding.edtTaskName)
+                    toDoData?.taskDueDate = taskDueDate
+                    toDoData?.taskComment = taskComment
+                    listener.onUpdateTask(toDoData!!, binding.edtTaskName, binding.edtDueDate, binding.edtComment) //add
                 }
-                listener.onSaveTask(taskName, binding.edtTaskName)
+                listener.onSaveTask(
+                    taskName,
+                    binding.edtTaskName,
+                    binding.edtDueDate, //add
+                    binding.edtComment //add
+                )
             } else  {
                 Toast.makeText(context, "Please enter task name", Toast.LENGTH_SHORT).show()
             }
@@ -78,8 +89,18 @@ class AddToDoFragment : DialogFragment() {
     }
 
     interface DiaglogSaveBtnClickListener {
-        fun onSaveTask(todo : String , edtTaskName : EditText)
-        fun onUpdateTask(toDoData: ToDoData , edtTaskName : EditText)
+        fun onSaveTask(
+            todo: String,
+            edtTaskName: EditText,
+            edtDueDate: EditText,
+            edtComment: EditText
+        )
+        fun onUpdateTask(
+            toDoData: ToDoData,
+            edtTaskName: EditText,
+            edtDueDate: EditText,
+            edtComment: EditText
+        )
     }
 
 
