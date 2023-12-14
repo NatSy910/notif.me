@@ -121,10 +121,10 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
 
         databaseRef.push().setValue(task).addOnCompleteListener {
             if (it.isSuccessful) {
-                Log.d("SaveTask", "Successfully saved!")
-                Toast.makeText(context, "Successfully saved!", Toast.LENGTH_SHORT).show()
+                Log.d("SaveTask", "Saved successfully!")
+                Toast.makeText(context, "Saved successfully!", Toast.LENGTH_SHORT).show()
             } else {
-                Log.e("SaveTask", "Error saving task", it.exception)
+                Log.e("SaveTask", "Error saving task.", it.exception)
                 Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
             }
         }
