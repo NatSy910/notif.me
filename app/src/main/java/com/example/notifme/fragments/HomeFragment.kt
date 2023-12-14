@@ -1,5 +1,6 @@
 package com.example.notifme.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.notifme.R
 import com.example.notifme.databinding.FragmentHomeBinding
 import com.example.notifme.utils.ToDoAdapter
 import com.example.notifme.utils.ToDoData
@@ -49,6 +51,7 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,7 +72,14 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
             taskPopUp!!.setListener(this)
             taskPopUp!!.show(childFragmentManager, "AddTodoFragment")
         }
+
+        binding.btnLogout.setOnClickListener {
+            auth.signOut();
+            Toast.makeText(context, "Logout successful!", Toast.LENGTH_SHORT).show()
+            navController.navigate(R.id.action_homeFragment_to_signInFragment)
+        }
      }
+
 
     private fun init(view: View) {
         navController = Navigation.findNavController(view)
@@ -90,7 +100,7 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
                 mList.clear()
                 for (taskSnapshot in snapshot.children){
                     val toDoTask = taskSnapshot.key?.let{
-                        ToDoData(it, taskSnapshot.value.toString(), taskSnapshot.value.toString(), taskSnapshot.value.toString())
+                        ToDoData(it, taskSnapshot.value.toString(), taskSnapshot.value.toString())
                     } //add
 
                     if (toDoTask != null){
@@ -106,7 +116,7 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
         })
     }
 
-    override fun onSaveTask(task: String, edtTaskName: EditText, taskDueDate: EditText, taskComment: EditText) {
+    override fun onSaveTask(task: String, edtTaskName: EditText, taskDueDate: EditText) {
         Log.d("SaveTask", "Task: $task")
 
         databaseRef.push().setValue(task).addOnCompleteListener {
@@ -117,16 +127,15 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
                 Log.e("SaveTask", "Error saving task", it.exception)
                 Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
             }
-            edtTaskName.text.clear()
-            taskPopUp!!.dismiss()
         }
+        taskPopUp!!.dismiss()
     }
+
 
     override fun onUpdateTask(
         toDoData: ToDoData,
         edtTaskName: EditText,
-        edtDueDate: EditText,
-        edtComment: EditText
+        edtDueDate: EditText
     ) {
         val map = HashMap<String, Any>()
         map[toDoData.taskId] = toDoData.task

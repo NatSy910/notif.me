@@ -51,9 +51,23 @@
         app:backgroundTint="#39A7FF"
         android:tint="@color/black"
         android:src="@drawable/baseline_add_24"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="Logout"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:backgroundTint="#39A7FF"
+        app:cornerRadius="10dp"
+        android:layout_marginTop="650dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="200dp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -62,6 +76,5 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="115dp"
         android:scrollbarSize="7dp" />
-
 
 </FrameLayout>

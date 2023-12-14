@@ -1,5 +1,6 @@
 package com.example.notifme.fragments
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.notifme.databinding.FragmentAddToDoBinding
 import com.example.notifme.utils.ToDoData
 import com.google.firebase.FirebaseApp
+import java.util.Calendar
 
 
 class AddToDoFragment : DialogFragment() {
@@ -51,33 +53,44 @@ class AddToDoFragment : DialogFragment() {
             toDoData = ToDoData(
                 arguments?.getString("taskID").toString(),
                 arguments?.getString("task").toString(),
-                arguments?.getString("taskDueDate").toString(), //add
-                arguments?.getString("taskComment").toString()) //add
+                arguments?.getString("taskDueDate").toString()) //add
+
 
             binding.edtTaskName.setText(toDoData?.task)
         }
         registerEvents()
+
+        binding.edtDueDate.setOnClickListener() {
+            val calendar: Calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            context?.let { it1 ->
+                DatePickerDialog(it1, { it, year, month, day ->
+                    val dat = (day.toString() + '-' + (month + 1) + '-' + year)
+                    binding.edtDueDate.setText(dat)
+                }, year, month, day)
+            }?.show()
+        }
     }
 
     private fun registerEvents() {
         binding.btnSaveToDo.setOnClickListener {
             val taskName = binding.edtTaskName.text.toString()
             val taskDueDate = binding.edtDueDate.text.toString()
-            val taskComment = binding.edtComment.text.toString()
             if (taskName.isNotEmpty()) {
                 if (toDoData == null) {
-                    listener.onSaveTask(taskName, binding.edtTaskName, binding.edtDueDate, binding.edtComment) //add
+                    listener.onSaveTask(taskName, binding.edtTaskName, binding.edtDueDate) //add
                 } else {
                     toDoData?.task = taskName
                     toDoData?.taskDueDate = taskDueDate
-                    toDoData?.taskComment = taskComment
-                    listener.onUpdateTask(toDoData!!, binding.edtTaskName, binding.edtDueDate, binding.edtComment) //add
+                    listener.onUpdateTask(toDoData!!, binding.edtTaskName, binding.edtDueDate) //add
                 }
                 listener.onSaveTask(
                     taskName,
                     binding.edtTaskName,
-                    binding.edtDueDate, //add
-                    binding.edtComment //add
+                    binding.edtDueDate //add
                 )
             } else  {
                 Toast.makeText(context, "Please enter task name", Toast.LENGTH_SHORT).show()
@@ -92,14 +105,12 @@ class AddToDoFragment : DialogFragment() {
         fun onSaveTask(
             todo: String,
             edtTaskName: EditText,
-            edtDueDate: EditText,
-            edtComment: EditText
+            edtDueDate: EditText
         )
         fun onUpdateTask(
             toDoData: ToDoData,
             edtTaskName: EditText,
-            edtDueDate: EditText,
-            edtComment: EditText
+            edtDueDate: EditText
         )
     }
 
