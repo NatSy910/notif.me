@@ -121,8 +121,8 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
 
         databaseRef.push().setValue(task).addOnCompleteListener {
             if (it.isSuccessful) {
-                Log.d("SaveTask", "Successfully saved")
-                Toast.makeText(context, "Successfully saved", Toast.LENGTH_SHORT).show()
+                Log.d("SaveTask", "Successfully saved!")
+                Toast.makeText(context, "Successfully saved!", Toast.LENGTH_SHORT).show()
             } else {
                 Log.e("SaveTask", "Error saving task", it.exception)
                 Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
@@ -141,7 +141,7 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
         map[toDoData.taskId] = toDoData.task
         databaseRef.updateChildren(map).addOnCompleteListener {
             if (it.isSuccessful){
-                Toast.makeText(context, "Updated Successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Updated successfully!", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
             }
@@ -153,7 +153,7 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
     override fun onDeleteTaskBtnClicked(toDoData: ToDoData) {
         databaseRef.child(toDoData.taskId).removeValue().addOnCompleteListener {
             if (it.isSuccessful){
-                Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Deleted successfully!", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
             }

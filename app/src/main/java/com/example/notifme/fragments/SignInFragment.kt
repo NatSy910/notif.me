@@ -60,12 +60,12 @@ class SignInFragment : Fragment() {
                             Toast.makeText(context, "Login successful!", Toast.LENGTH_SHORT).show()
                             navControl.navigate(R.id.action_signInFragment_to_homeFragment)
                         } else {
-                            Toast.makeText(context, "You are not a registered user. Please register first.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "You may not be a registered user or have entered invalid credentials.", Toast.LENGTH_LONG).show()
                             }
                         binding.progressBar.visibility = View.GONE
                     })
             } else {
-                Toast.makeText(context, "Please enter the necessary fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Please fill up the necessary fields.", Toast.LENGTH_SHORT).show()
             }
         }
     }

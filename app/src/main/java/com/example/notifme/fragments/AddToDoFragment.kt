@@ -93,7 +93,7 @@ class AddToDoFragment : DialogFragment() {
                     binding.edtDueDate //add
                 )
             } else  {
-                Toast.makeText(context, "Please enter task name", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Please enter task name.", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnCancel.setOnClickListener {

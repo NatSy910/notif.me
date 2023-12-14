@@ -66,15 +66,15 @@ class SignUpFragment : Fragment() {
                                 Toast.makeText(context, "Registered successfully!", Toast.LENGTH_SHORT).show()
                                 navControl.navigate(R.id.action_signUpfragment_to_homeFragment)
                             } else {
-                                Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Please enter a valid email and a password with 6 or more characters.", Toast.LENGTH_LONG).show()
                             }
                             binding.progressBar.visibility = View.GONE
                         })
                 } else {
-                    Toast.makeText(context, "Password does not match, please try again.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Passwords do not match, please try again.", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(context, "Please enter the necessaery fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Please fill up the necessary fields.", Toast.LENGTH_SHORT).show()
             }
         }
     }
