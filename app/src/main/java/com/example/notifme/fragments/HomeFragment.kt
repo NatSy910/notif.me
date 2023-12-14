@@ -94,16 +94,18 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
         binding.recyclerView.adapter = adapter
     }
 
-    private fun getDataFromFirebase(){
-        databaseRef.addValueEventListener(object :ValueEventListener{
+    private fun getDataFromFirebase() {
+        databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 mList.clear()
-                for (taskSnapshot in snapshot.children){
-                    val toDoTask = taskSnapshot.key?.let{
-                        ToDoData(it, taskSnapshot.value.toString(), taskSnapshot.value.toString())
-                    } //add
+                for (taskSnapshot in snapshot.children) {
+                    val taskId = taskSnapshot.key
+                    val task = taskSnapshot.child("task").getValue(String::class.java)
+                    val dueDate = taskSnapshot.child("dueDate").getValue(String::class.java)
 
-                    if (toDoTask != null){
+                    if (taskId != null && task != null && dueDate != null) {
+                        val concatenatedText = "$task - $dueDate"
+                        val toDoTask = ToDoData(taskId, concatenatedText, dueDate)
                         mList.add(toDoTask)
                     }
                 }
@@ -119,7 +121,13 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
     override fun onSaveTask(task: String, edtTaskName: EditText, taskDueDate: EditText) {
         Log.d("SaveTask", "Task: $task")
 
-        databaseRef.push().setValue(task).addOnCompleteListener {
+        val dueDate = taskDueDate.text.toString()
+        val taskMap = mapOf(
+            "task" to task,
+            "dueDate" to dueDate
+        )
+
+        databaseRef.push().setValue(taskMap).addOnCompleteListener {
             if (it.isSuccessful) {
                 Log.d("SaveTask", "Saved successfully!")
                 Toast.makeText(context, "Saved successfully!", Toast.LENGTH_SHORT).show()
@@ -132,20 +140,23 @@ class HomeFragment : Fragment(), AddToDoFragment.DiaglogSaveBtnClickListener,
     }
 
 
-    override fun onUpdateTask(
-        toDoData: ToDoData,
-        edtTaskName: EditText,
-        edtDueDate: EditText
-    ) {
+    override fun onUpdateTask(toDoData: ToDoData, edtTaskName: EditText, edtDueDate: EditText) {
+        val taskId = toDoData.taskId
+        val updatedTask = edtTaskName.text.toString()
+        val updatedDueDate = edtDueDate.text.toString()
+
         val map = HashMap<String, Any>()
-        map[toDoData.taskId] = toDoData.task
-        databaseRef.updateChildren(map).addOnCompleteListener {
-            if (it.isSuccessful){
+        map["task"] = updatedTask
+        map["dueDate"] = updatedDueDate
+
+        databaseRef.child(taskId).updateChildren(map).addOnCompleteListener {
+            if (it.isSuccessful) {
                 Toast.makeText(context, "Updated successfully!", Toast.LENGTH_SHORT).show()
-            }else{
+            } else {
                 Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
             }
             edtTaskName.text = null
+            edtDueDate.text = null
             taskPopUp!!.dismiss()
         }
     }
