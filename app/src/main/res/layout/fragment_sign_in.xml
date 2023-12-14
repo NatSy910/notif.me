@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#39A7FF"
+    android:background="#BDD8F1"
     tools:context=".fragments.SignUpFragment">
 
     <TextView
@@ -14,8 +14,8 @@
         android:layout_marginStart="26dp"
         android:layout_marginTop="24dp"
         android:text="@string/sign_in"
-        android:textColor="@color/white"
         android:textSize="32sp"
+        android:fontFamily="@font/mont_extralight"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -51,6 +51,8 @@
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:hint="@string/email_address"
+                android:fontFamily="@font/mont_extralight"
+                android:textStyle="bold"
                 android:inputType="textEmailAddress"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
@@ -89,6 +91,8 @@
                 android:background="@color/white"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:fontFamily="@font/mont_extralight"
+                android:textStyle="bold"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="14dp">
@@ -97,17 +101,20 @@
         </com.google.android.material.textfield.TextInputLayout>
     </com.google.android.material.card.MaterialCardView>
 
-
-    <ImageView
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnNext"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="9dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        app:backgroundTint="#82A6CB"
         android:src="@drawable/next"
+        app:maxImageSize="28dp"
+        app:fabCustomSize="45dp"
         app:layout_constraintEnd_toEndOf="@+id/cardPassword"
-        app:layout_constraintTop_toBottomOf="@+id/cardPassword">
-    </ImageView>
+        app:layout_constraintTop_toBottomOf="@+id/cardPassword"/>
+
 
     <TextView
         android:id="@+id/txtAlrReg"
@@ -115,6 +122,8 @@
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:text="@string/not_yet_registered"
+        android:fontFamily="@font/mont_extralight"
+        android:textStyle="bold"
         android:layout_marginTop="5dp"
         android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="@+id/cardPassword"
@@ -128,6 +137,8 @@
         android:textColor="@color/hyperlink"
         android:textSize="15sp"
         android:text="@string/sign_up"
+        android:fontFamily="@font/mont_extralight"
+        android:textStyle="bold"
         android:layout_marginStart="5dp"
         app:layout_constraintStart_toEndOf="@+id/txtAlrReg"
         app:layout_constraintTop_toTopOf="@+id/txtAlrReg">

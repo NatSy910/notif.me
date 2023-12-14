@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.HomeFragment">
+    tools:context=".fragments.HomeFragment"
+    android:backgroundTint="@color/white">
 
     <LinearLayout
         android:id="@+id/linearHorizontalHeader"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:background="#87C4FF"
+        android:layout_width="411dp"
+        android:layout_height="75dp"
+        android:background="#BDD8F1"
         android:orientation="horizontal"
         android:padding="10sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,21 +23,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/acme"
+            android:fontFamily="@font/mont_extralight"
             android:text="Notif.me"
             android:textAlignment="center"
-            android:textSize="40sp" />
+            android:layout_marginTop="11dp"
+            android:textSize="30sp" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/txtToDo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="90dp"
         android:layout_weight="20"
-        android:text="To Do"
-        android:textSize="25sp"
+        android:text="To do"
+        android:textSize="50sp"
+        android:fontFamily="@font/mont_extralight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,33 +51,36 @@
         android:layout_marginTop="650dp"
         android:layout_marginStart="330dp"
         android:clickable="true"
-        app:backgroundTint="#39A7FF"
-        android:tint="@color/black"
-        android:src="@drawable/baseline_add_24"
+        app:backgroundTint="#82A6CB"
+        android:src="@drawable/add"
+        app:maxImageSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="Logout"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:backgroundTint="#39A7FF"
-        app:cornerRadius="10dp"
-        android:layout_marginTop="650dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
         />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="650dp"
+        android:layout_marginStart="30dp"
+        android:clickable="true"
+        app:backgroundTint="#82A6CB"
+        android:src="@drawable/out"
+        app:maxImageSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="115dp"
-        android:scrollbarSize="7dp" />
+        android:layout_marginTop="170dp"
+        android:scrollbarSize="7dp"
+        android:fontFamily="@font/mont_extralight"
+        />
 
 </FrameLayout>

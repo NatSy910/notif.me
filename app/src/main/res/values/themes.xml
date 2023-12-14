@@ -3,7 +3,17 @@
     <style name="Base.Theme.NOTIFME" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="floatingActionButtonStyle">@style/FloatingActionButtonStyle</item>
     </style>
 
     <style name="Theme.NOTIFME" parent="Base.Theme.NOTIFME" />
+
+    <style name="FloatingActionButtonStyle" parent="Widget.Design.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/FabShapeStyle1</item>
+    </style>
+    
+    <style name="FabShapeStyle1" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">50%</item>
+        <item name="sizePercent"></item>
+    </style>
 </resources>
