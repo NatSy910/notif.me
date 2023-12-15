@@ -87,11 +87,6 @@ class AddToDoFragment : DialogFragment() {
                     toDoData?.taskDueDate = taskDueDate
                     listener.onUpdateTask(toDoData!!, binding.edtTaskName, binding.edtDueDate) //add
                 }
-                listener.onSaveTask(
-                    taskName,
-                    binding.edtTaskName,
-                    binding.edtDueDate //add
-                )
             } else  {
                 Toast.makeText(context, "Please enter task name.", Toast.LENGTH_SHORT).show()
             }
