@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="650dp"
-        android:layout_marginStart="330dp"
+        android:layout_marginStart="313dp"
         android:clickable="true"
         app:backgroundTint="#82A6CB"
         android:src="@drawable/add"
@@ -78,7 +78,7 @@
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="160dp"
         android:scrollbarSize="7dp"
         android:fontFamily="@font/mont_extralight"
         />
